@@ -3,6 +3,8 @@ using UnityEngine.Scripting.APIUpdating;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.CompilerServices;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -36,15 +38,35 @@ public class Player : MonoBehaviour
         {
             Vector2 mousePos = Input.mousePosition;
             Vector2 realPos = Camera.main.ScreenToWorldPoint(mousePos);
-            transform.position = new Vector2(realPos.x, fixedY);
-
-
+            //transform.position = new Vector2(realPos.x, fixedY);
+            StopAllCoroutines();
+            StartCoroutine(MoveGradually(realPos));
         }
-
-
-
+      
+        
 
     }
 
-  
+    private IEnumerator MoveGradually(Vector2 _target_position)
+    {
+        float distance = Mathf.Abs(transform.position.x - _target_position.x);
+        
+        while (distance > 0.2f)
+        {
+            yield return new WaitForFixedUpdate();
+
+            if (transform.position.x > _target_position.x) 
+            {
+                transform.position = new Vector2(transform.position.x - 0.2f, fixedY);
+            }
+            else
+            {
+                transform.position = new Vector2(transform.position.x + 0.2f, fixedY);
+            }
+            distance = Mathf.Abs(transform.position.x - _target_position.x);
+        }
+        transform.position = new Vector2(_target_position.x , fixedY);
+
+
+    }
 }
