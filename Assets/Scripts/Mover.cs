@@ -19,6 +19,6 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = (Vector2)transform.position + Vector2.down * Time.deltaTime;
+        transform.position = (Vector2)transform.position + Vector2.down * speed * Time.deltaTime;
     }
 }

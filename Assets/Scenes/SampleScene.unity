@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03933bedfb771c846a84f3e5f26388e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5
 --- !u!4 &1931981611
 Transform:
   m_ObjectHideFlags: 0
@@ -624,6 +624,7 @@ MonoBehaviour:
   points: 0
   shootInterval: 0
   shootTimer: 0
+  projectilePrefab: {fileID: 6531136617449943231, guid: 47de235a7139b9f468e59d9d2ef48afe, type: 3}
   shootPoints: {fileID: 0}
 --- !u!4 &2062117209
 Transform:
@@ -645,6 +646,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1931981611}
   - {fileID: 619394802}
   - {fileID: 2062117209}
-  - {fileID: 1931981611}

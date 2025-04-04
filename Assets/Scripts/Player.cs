@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     public float shootInterval;
     public float shootTimer;
-
+    public GameObject projectilePrefab;
 
     public Transform shootPoints;
     private float fixedY;
@@ -30,11 +30,12 @@ public class Player : MonoBehaviour
         Move();
 
         shootTimer -= Time.deltaTime;
+        Shoot();
     }
 
     void Move()
     {
-         if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             Vector2 mousePos = Input.mousePosition;
             Vector2 realPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -42,11 +43,22 @@ public class Player : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(MoveGradually(realPos));
         }
-      
-        
+
+
 
     }
-
+    void Shoot()
+    {
+        if (Input.GetMouseButton(0) && shootTimer <= 0)
+        {
+            shootTimer = 0.3f;
+            Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        }
+    
+    
+    
+    
+    }
     private IEnumerator MoveGradually(Vector2 _target_position)
     {
         float distance = Mathf.Abs(transform.position.x - _target_position.x);
