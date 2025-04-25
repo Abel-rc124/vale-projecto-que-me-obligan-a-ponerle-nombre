@@ -17,9 +17,18 @@ public class obstacle : MonoBehaviour
         }
         if (collision.tag == "Laser")
         {
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
     }
+   private IEnumerator DestroyRoutine()
+    {
+        yield return new WaitForSeconds(0.5f) ;
+        SceneManager.LoadScene(0);
+
+    }
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +40,5 @@ public class obstacle : MonoBehaviour
     {
         
     }
-    private IEnumerator DestroyRoutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-    SceneManager.LoadScene(1);
-}
+
 }

@@ -18,11 +18,29 @@ public class Player : MonoBehaviour
 
     public Transform shootPoints;
     private float fixedY;
+    private const float MIN_X = -2.7f;
+    private const float MAX_X = 2.7f;
 
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "eSTRELLA")
+        {
+            Destroy(collision.gameObject);
+
+        }
+        
+        
+        
+    }
+    private void OnAnimatorIK(int layerIndex)
+    {
+        
+    }
     private void Awake()
     {
         fixedY = -4f;
+
     }
 
     private void Update()
@@ -39,9 +57,16 @@ public class Player : MonoBehaviour
         {
             Vector2 mousePos = Input.mousePosition;
             Vector2 realPos = Camera.main.ScreenToWorldPoint(mousePos);
-            //transform.position = new Vector2(realPos.x, fixedY);
-            StopAllCoroutines();
-            StartCoroutine(MoveGradually(realPos));
+
+            if (realPos.x > MIN_X && realPos.x < MAX_X) 
+            {
+                StopAllCoroutines();
+                StartCoroutine(MoveGradually(realPos));
+
+            }
+
+     
+            
         }
 
 
