@@ -5,21 +5,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.CompilerServices;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public int points;
-
-
 
     public float shootInterval;
     public float shootTimer;
     public GameObject projectilePrefab;
 
     public Transform shootPoints;
+
     private float fixedY;
     private const float MIN_X = -2.7f;
     private const float MAX_X = 2.7f;
+
+    public AudioSource source;
+
+    int contador = 0;
+
+
+    private void Awake()
+    {
+        fixedY = -4f;
+        source = GetComponent<AudioSource>();
+    }
+
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,20 +41,19 @@ public class Player : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
+        
+            contador++;
+            label.text = contador.ToString();
+
         }
-        
-        
-        
+
     }
+    public TextMeshProUGUI label;
     private void OnAnimatorIK(int layerIndex)
     {
         
     }
-    private void Awake()
-    {
-        fixedY = -4f;
 
-    }
 
     private void Update()
     {
@@ -50,6 +62,7 @@ public class Player : MonoBehaviour
         shootTimer -= Time.deltaTime;
         Shoot();
     }
+
 
     void Move()
     {
@@ -77,6 +90,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0) && shootTimer <= 0)
         {
             shootTimer = 0.3f;
+            source.Play();
             Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         }
     
